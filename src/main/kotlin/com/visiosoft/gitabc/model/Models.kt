@@ -38,6 +38,7 @@ data class FileChange(
     val changelistId: String = "Default"
 ) {
     val directory: String = File(path).parent ?: "/"
+    val fileName: String = File(path).name
 }
 
 /**

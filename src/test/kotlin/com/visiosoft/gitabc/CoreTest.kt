@@ -9,12 +9,21 @@ import java.io.File
  */
 fun main() {
     val gitService = GitService()
-    val testRepoPath = File("/tmp/test_repos")
+    
+    // Use system property or fallback to /tmp/test_repos
+    val testRepoPathString = System.getProperty("test.repos.path", "/tmp/test_repos")
+    val testRepoPath = File(testRepoPathString)
     
     println("=== GitABC Core Functionality Test ===\n")
     
+    if (!testRepoPath.exists()) {
+        println("✗ Test repository directory does not exist: ${testRepoPath.absolutePath}")
+        println("  Please create test repositories at this location or set 'test.repos.path' system property")
+        return
+    }
+    
     // Test 1: Find repositories
-    println("Test 1: Finding repositories...")
+    println("Test 1: Finding repositories in ${testRepoPath.absolutePath}...")
     val repositories = gitService.findRepositories(testRepoPath)
     println("Found ${repositories.size} repositories:")
     repositories.forEach { repo ->

@@ -133,9 +133,26 @@ class AppState {
      * Create a new changelist
      */
     fun createChangelist(name: String) {
-        val id = name.lowercase().replace(" ", "_")
+        val id = generateChangelistId(name)
         val newChangelist = Changelist(id, name, false)
         changelists = changelists + newChangelist
+    }
+    
+    private fun generateChangelistId(name: String): String {
+        // Generate a unique ID from the name
+        val baseId = name.trim()
+            .lowercase()
+            .replace(Regex("[^a-z0-9]+"), "_")
+            .trim('_')
+        
+        // Check for duplicates and append number if needed
+        var id = baseId
+        var counter = 1
+        while (changelists.any { it.id == id }) {
+            id = "${baseId}_$counter"
+            counter++
+        }
+        return id
     }
     
     /**

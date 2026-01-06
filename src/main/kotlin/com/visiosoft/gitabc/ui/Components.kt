@@ -351,7 +351,7 @@ fun FileChangeItem(
         ) {
             FileStatusIcon(change.status)
             Text(
-                java.io.File(change.path).name,
+                change.fileName,
                 fontSize = 13.sp
             )
         }

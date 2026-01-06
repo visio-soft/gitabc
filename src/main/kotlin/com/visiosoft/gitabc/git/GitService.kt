@@ -28,6 +28,8 @@ class GitService {
                 .build()
             Git(repository)
         } catch (e: Exception) {
+            // Log error - in a production app, use proper logging
+            System.err.println("Failed to open repository at ${path.absolutePath}: ${e.message}")
             null
         }
     }
@@ -170,7 +172,8 @@ class GitService {
         }
         
         path.listFiles()?.forEach { file ->
-            if (file.isDirectory && !file.name.startsWith(".")) {
+            // Skip .git directories but allow other hidden directories
+            if (file.isDirectory && file.name != ".git") {
                 findRepositoriesRecursive(file, maxDepth, currentDepth + 1, repositories)
             }
         }
