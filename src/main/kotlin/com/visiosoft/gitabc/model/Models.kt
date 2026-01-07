@@ -35,7 +35,7 @@ data class CommitStatus(
 data class FileChange(
     val path: String,
     val status: ChangeStatus,
-    val changelistId: String = "Default"
+    val changelistId: String = "default"
 ) {
     val directory: String = File(path).parent ?: "/"
     val fileName: String = File(path).name
@@ -63,4 +63,18 @@ data class Changelist(
     companion object {
         val DEFAULT = Changelist("default", "Default", true)
     }
+}
+
+/**
+ * Represents a node in the hierarchical change tree
+ */
+data class ChangeNode(
+    val name: String,
+    val fullPath: String? = null,
+    val fileChange: FileChange? = null,
+    val children: MutableList<ChangeNode> = mutableListOf(),
+    var isExpanded: Boolean = true
+) {
+    val isFile: Boolean get() = fileChange != null
+    val isDirectory: Boolean get() = fileChange == null
 }
