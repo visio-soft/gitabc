@@ -1,0 +1,160 @@
+{
+  "name": "gitabc",
+  "displayName": "GitABC - Git Client",
+  "description": "A simple and intuitive Git client for VS Code, inspired by JetBrains Git integration. Works exclusively with GitHub.",
+  "version": "1.0.0",
+  "publisher": "visiosoft",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "SCM Providers"
+  ],
+  "keywords": [
+    "git",
+    "github",
+    "source control",
+    "version control"
+  ],
+  "activationEvents": [
+    "workspaceContains:.git"
+  ],
+  "main": "./out/extension.js",
+  "icon": "resources/icon.png",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "gitabc",
+          "title": "GitABC",
+          "icon": "$(git-commit)"
+        }
+      ]
+    },
+    "views": {
+      "gitabc": [
+        {
+          "id": "gitabcPanel",
+          "name": "Commit",
+          "type": "webview"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "gitabc.refresh",
+        "title": "Refresh",
+        "icon": "$(refresh)",
+        "category": "GitABC"
+      },
+      {
+        "command": "gitabc.commit",
+        "title": "Commit",
+        "icon": "$(check)",
+        "category": "GitABC"
+      },
+      {
+        "command": "gitabc.commitAndPush",
+        "title": "Commit and Push",
+        "icon": "$(check-all)",
+        "category": "GitABC"
+      },
+      {
+        "command": "gitabc.push",
+        "title": "Push",
+        "icon": "$(cloud-upload)",
+        "category": "GitABC"
+      },
+      {
+        "command": "gitabc.pull",
+        "title": "Pull",
+        "icon": "$(cloud-download)",
+        "category": "GitABC"
+      },
+      {
+        "command": "gitabc.fetch",
+        "title": "Fetch",
+        "icon": "$(sync)",
+        "category": "GitABC"
+      },
+      {
+        "command": "gitabc.rollback",
+        "title": "Rollback",
+        "icon": "$(discard)",
+        "category": "GitABC"
+      },
+      {
+        "command": "gitabc.shelve",
+        "title": "Shelve Changes",
+        "icon": "$(archive)",
+        "category": "GitABC"
+      },
+      {
+        "command": "gitabc.showDiff",
+        "title": "Show Diff",
+        "icon": "$(diff)",
+        "category": "GitABC"
+      },
+      {
+        "command": "gitabc.switchBranch",
+        "title": "Switch Branch",
+        "icon": "$(git-branch)",
+        "category": "GitABC"
+      },
+      {
+        "command": "gitabc.createBranch",
+        "title": "Create Branch",
+        "icon": "$(add)",
+        "category": "GitABC"
+      },
+      {
+        "command": "gitabc.newChangelist",
+        "title": "New Changelist",
+        "icon": "$(add)",
+        "category": "GitABC"
+      },
+      {
+        "command": "gitabc.clone",
+        "title": "Clone Repository",
+        "icon": "$(repo-clone)",
+        "category": "GitABC"
+      }
+    ],
+    "configuration": {
+      "title": "GitABC",
+      "properties": {
+        "gitabc.autoFetch": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically fetch from remote periodically"
+        },
+        "gitabc.autoFetchInterval": {
+          "type": "number",
+          "default": 180,
+          "description": "Auto-fetch interval in seconds"
+        },
+        "gitabc.showStatusBarItem": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show branch and sync status in status bar"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
+    "watch": "npm run compile -- --watch",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.19.0",
+    "typescript": "^5.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/visiosoft/gitabc"
+  }
+}
