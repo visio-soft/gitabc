@@ -1,4 +1,3 @@
-import * as vscode from 'vscode';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import * as path from 'path';
@@ -232,9 +231,5 @@ export class GitService {
 
     async clone(url: string, destination: string): Promise<void> {
         await execAsync(`git clone "${url}"`, { cwd: destination });
-    }
-
-    getOriginalUri(uri: vscode.Uri): vscode.Uri {
-        return uri.with({ scheme: 'git', query: 'HEAD' });
     }
 }
